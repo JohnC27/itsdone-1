@@ -72,7 +72,8 @@ const EditCard = props => {
 
   const onInputChange = (value, type) => {
     if (type === 'tags') {
-      const tagsNames = value.trim().split(' ');
+      const tagsNames = value.trim().split(' ').filter(tagName => tagName)
+
       const isValid = tagsNames.every(tagName => tagName.split('').splice(1).join('').length < 10);
 
       if (tagsNames.length > 5) {
@@ -110,9 +111,9 @@ const EditCard = props => {
     <div className={css.card}>
       <form onSubmit={onFormSubmit} className={css.card__form}>
         <input type='date' className={css.card__date} onChange={e => onInputChange(e.target.value, 'date')} value={formVal.date} />
-        <input ref={titleRef} type='text' className={css.card__title} onChange={e => onInputChange(e.target.value, 'title')} value={formVal.title} required />
-        <textarea cols='20' rows='4' className={css.card__edit_note} onChange={e => onInputChange(e.target.value, 'text')} value={formVal.text} />
-        <input ref={tagsInputRef} type="text" onChange={e => onInputChange(e.target.value, 'tags')} value={formVal.tags} />
+        <input placeholder="title" ref={titleRef} type='text' className={css.card__title} onChange={e => onInputChange(e.target.value, 'title')} value={formVal.title} required />
+        <textarea placeholder="note" cols='20' rows='4' className={css.card__edit_note} onChange={e => onInputChange(e.target.value, 'text')} value={formVal.text} />
+        <input placeholder="tags" ref={tagsInputRef} type="text" onChange={e => onInputChange(e.target.value, 'tags')} value={formVal.tags} />
         <div className={css.card__btn_group}>
           <button type='submit' className={css.card__btn}>Save</button>
           <button data-cancelbtn={true} onClick={closeEditCard} type='submit' className={css.card__btn}>Cancel</button>
